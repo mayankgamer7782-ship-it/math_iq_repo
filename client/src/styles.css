@@ -1,8 +1,0 @@
-body{font-family:Arial,Helvetica,sans-serif;margin:20px;}
-.nav{margin-bottom:12px;}
-.container{max-width:800px;margin:0 auto;}
-.card{border:1px solid #ddd;padding:16px;border-radius:8px;margin-bottom:12px;}
-input,button,select{padding:8px;margin:4px 0;display:block;width:100%;box-sizing:border-box;}
-.row{display:flex;gap:8px;}
-.col{flex:1;}
-.small{font-size:0.9rem;color:#666;}
