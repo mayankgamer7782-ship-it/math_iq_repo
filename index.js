@@ -1,10 +1,10 @@
+const express = require("express");
+const cors = require("cors");
 
-const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Math IQ Battle server running');
-});
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.use(cors({
+  origin: "https://math-iq-repo.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
