@@ -3,7 +3,7 @@ import cors from "cors";
 
 const app = express();
 
-// ✅ Allow requests from both possible frontend URLs
+// ✅ Allow your Vercel frontend
 app.use(
   cors({
     origin: [
@@ -15,28 +15,42 @@ app.use(
   })
 );
 
-// Middleware to parse JSON
 app.use(express.json());
 
-// Simple health check route
+// ✅ Health check
 app.get("/", (req, res) => {
   res.json({ message: "Server reachable ✅" });
 });
 
-// --- Example auth routes (you probably have real ones below this) ---
+// ✅ Simple user routes to prevent 404 errors
+let mockUser = null;
+
+// Register
 app.post("/api/auth/register", (req, res) => {
   const { username, email, password } = req.body;
-  console.log("Register request:", { username, email });
-  return res.json({ ok: true, message: "Registered successfully" });
+  if (!username || !email || !password)
+    return res.status(400).json({ error: "Missing fields" });
+  mockUser = { username, email };
+  console.log("🟢 Registered user:", mockUser);
+  res.json({ ok: true, message: "Registered successfully", user: mockUser });
 });
 
+// Login
 app.post("/api/auth/login", (req, res) => {
   const { email, password } = req.body;
-  console.log("Login request:", { email });
-  return res.json({ ok: true, message: "Logged in successfully" });
+  if (!mockUser || mockUser.email !== email)
+    return res.status(401).json({ error: "Invalid credentials" });
+  res.json({ ok: true, message: "Logged in successfully", user: mockUser });
 });
 
-// --- Start server ---
+// User info
+app.get("/api/user/me", (req, res) => {
+  if (!mockUser)
+    return res.status(401).json({ error: "Not logged in" });
+  res.json({ user: mockUser });
+});
+
+// Start the server
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ Math IQ Battle server running on port ${PORT}`);
