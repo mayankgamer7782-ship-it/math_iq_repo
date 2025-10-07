@@ -1,12 +1,14 @@
 {
-  "name": "math-duel-server",
+  "name": "math-iq-repo",
   "version": "1.0.0",
+  "description": "Math IQ Battle backend",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
   }
 }
