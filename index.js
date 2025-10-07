@@ -4,10 +4,10 @@ import cors from "cors";
 
 const app = express();
 
-// ✅ Allow requests from your Vercel frontend
+// ✅ Allow all origins for now (fixes CORS/network errors)
 app.use(
   cors({
-    origin: "https://math-iq-repo.vercel.app",
+    origin: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -16,12 +16,12 @@ app.use(
 // Middleware to parse JSON
 app.use(express.json());
 
-// 🩵 Health check route
+// 🟢 Health check
 app.get("/", (req, res) => {
   res.send("✅ Math IQ Battle backend is running successfully!");
 });
 
-// 🧠 Dummy Authentication Routes (for testing)
+// 🧠 Dummy authentication routes
 app.post("/api/auth/register", (req, res) => {
   const { username, email, password } = req.body;
   console.log("Register request:", { username, email, password });
@@ -34,13 +34,18 @@ app.post("/api/auth/login", (req, res) => {
   res.json({ message: `Welcome back, ${username}!` });
 });
 
-// 🧩 Test route to confirm CORS works
-app.get("/api/test", (req, res) => {
-  res.json({ message: "CORS test successful 🎯" });
+// 🧩 Debug route to confirm CORS & network
+app.all("/debug", (req, res) => {
+  res.json({
+    method: req.method,
+    headers: req.headers,
+    body: req.body,
+    message: "Server reachable ✅",
+  });
 });
 
 // ✅ Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ Math IQ Battle server running on port ${PORT}`);
 });
