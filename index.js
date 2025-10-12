@@ -7,7 +7,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://https://math-iq-repo.vercel.app",
+      "https://math-iq-repo.vercel.app",
       "https://math-iq-repo-git-master-mayanks-projects-7ac8f4f8.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
